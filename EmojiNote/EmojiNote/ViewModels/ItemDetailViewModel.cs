@@ -9,10 +9,18 @@ namespace EmojiNote.ViewModels
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public class ItemDetailViewModel : BaseViewModel
     {
+        public Item item;
         private string itemId;
         private string text;
         private string description;
         public string Id { get; set; }
+
+        public ItemDetailViewModel()
+        {
+            DeleteItemCommand = new Command(DeleteItem);
+        }
+
+        public Command DeleteItemCommand { get; }
 
         public string Text
         {
@@ -43,7 +51,7 @@ namespace EmojiNote.ViewModels
         {
             try
             {
-                var item = await DataStore.GetItemAsync(itemId);
+                 item = await DataStore.GetItemAsync(itemId);
                 Id = item.Id;
                 Text = item.Text;
                 Description = item.Description;
@@ -58,7 +66,13 @@ namespace EmojiNote.ViewModels
         {
             try
             {
-                var item = await DataStore.DeleteItemAsync(Id);
+                var a = await DataStore.DeleteItemAsync(item.Id);
+                if (a)
+                {
+                   await Shell.Current.GoToAsync("..");
+                }
+                    
+                
 
             }
             catch (Exception)

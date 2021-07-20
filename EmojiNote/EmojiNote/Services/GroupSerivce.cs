@@ -15,7 +15,12 @@ namespace EmojiNote.Services
 
         public GroupSerivce()
         {
-            groups = new List<Group>();
+            groups = new List<Group>()
+            {
+                new Group { Id = "0", Emoji = "a", Description="hah", Text="wow"},
+                new Group { Id = "1", Emoji = "b", Description="hah", Text="wow" },
+                new Group { Id = "3", Emoji = "c", Description="hah", Text="wow" },
+            };
         }
 
         public async Task<bool> AddGroupAsync(Group group)
